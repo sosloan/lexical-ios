@@ -12,7 +12,7 @@ import LexicalLinkPlugin
 import LexicalListPlugin
 import UIKit
 
-class ViewController: UIViewController, UIToolbarDelegate {
+class ViewController: UIViewController, UIToolbarDelegate, LexicalViewDelegate {
 
   var lexicalView: LexicalView?
   weak var toolbar: UIToolbar?
@@ -59,6 +59,12 @@ class ViewController: UIViewController, UIToolbarDelegate {
 
     navigationItem.title = "Lexical"
     setUpExportMenu()
+    
+    // Set the delegate to self
+    lexicalView.delegate = self
+    
+    // Trigger the API call
+    lexicalView.triggerAPICall(urlString: "https://api.example.com/data")
   }
 
   override func viewDidLayoutSubviews() {
@@ -136,5 +142,11 @@ class ViewController: UIViewController, UIToolbarDelegate {
 
   func position(for bar: UIBarPositioning) -> UIBarPosition {
     return .top
+  }
+  
+  // Implement the new LexicalViewDelegate method to handle API responses
+  func didReceiveAPIResponse(_ response: Data) {
+    // Handle the API response data here
+    print("Received API response: \(response)")
   }
 }

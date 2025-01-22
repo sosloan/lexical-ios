@@ -926,6 +926,30 @@ public class Editor: NSObject {
 
     return self.editorState
   }
+
+  // Add a new method `fetchDataFromAPI` to handle API calls
+  public func fetchDataFromAPI(urlString: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    guard let url = URL(string: urlString) else {
+      completion(.failure(LexicalError.internal("Invalid URL")))
+      return
+    }
+
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+      if let error = error {
+        completion(.failure(error))
+        return
+      }
+
+      guard let data = data else {
+        completion(.failure(LexicalError.internal("No data received")))
+        return
+      }
+
+      completion(.success(data))
+    }
+
+    task.resume()
+  }
 }
 
 internal enum NativeSelectionModificationType {
