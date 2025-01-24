@@ -17,6 +17,7 @@ public class EditorState: NSObject {
 
   internal var nodeMap: [NodeKey: Node] = [:]
   public var selection: BaseSelection?
+  public var apiResponseData: Data? // New property to store API response data
 
   override init() {
     let rootNode = RootNode()
@@ -25,6 +26,7 @@ public class EditorState: NSObject {
 
   init(_ editorState: EditorState) {
     nodeMap = editorState.nodeMap
+    apiResponseData = editorState.apiResponseData // Include the new property in the clone
   }
 
   /// Returns the root node for this EditorState, if one is set.

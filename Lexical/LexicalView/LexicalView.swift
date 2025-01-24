@@ -19,6 +19,7 @@ public protocol LexicalViewDelegate: NSObjectProtocol {
   func textViewDidEndEditing(textView: LexicalView)
   func textViewShouldChangeText(_ textView: LexicalView, range: NSRange, replacementText text: String) -> Bool
   func textView(_ textView: LexicalView, shouldInteractWith URL: URL, in selection: RangeSelection?, interaction: UITextItemInteraction) -> Bool
+  func didReceiveAPIResponse(_ response: Data) // New method for handling API responses
 }
 
 public extension LexicalViewDelegate {
@@ -477,6 +478,20 @@ public extension LexicalViewDelegate {
   public func commitAutocompleteSuggestions() {
     textView.inputDelegate?.selectionWillChange(textView)
     textView.inputDelegate?.selectionDidChange(textView)
+  }
+
+  // New method to trigger API call
+  public func triggerAPICall(urlString: String) {
+    editor.fetchDataFromAPI(urlString: urlString) { [weak self] result in
+      switch result {
+      case .success(let data):
+        DispatchQueue.main.async {
+          self?.delegate?.didReceiveAPIResponse(data)
+        }
+      case .failure(let error):
+        print("Error fetching data from API: \(error)")
+      }
+    }
   }
 }
 
