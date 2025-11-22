@@ -39,7 +39,7 @@ class ViewController: UIViewController, UIToolbarDelegate, LexicalViewDelegate {
     let theme = Theme()
     theme.indentSize = 40.0
     theme.link = [
-      .foregroundColor: UIColor.systemBlue,
+      .foregroundColor: UIColor.systemBlue
     ]
 
     let editorConfig = EditorConfig(theme: theme, plugins: [toolbarPlugin, listPlugin, hierarchyPlugin, imagePlugin, linkPlugin, editorHistoryPlugin])
@@ -74,18 +74,21 @@ class ViewController: UIViewController, UIToolbarDelegate, LexicalViewDelegate {
       let safeAreaInsets = self.view.safeAreaInsets
       let hierarchyViewHeight = 300.0
 
-      toolbar.frame = CGRect(x: 0,
-                             y: safeAreaInsets.top,
-                             width: view.bounds.width,
-                             height: 44)
-      lexicalView.frame = CGRect(x: 0,
-                                 y: toolbar.frame.maxY,
-                                 width: view.bounds.width,
-                                 height: view.bounds.height - toolbar.frame.maxY - safeAreaInsets.bottom - hierarchyViewHeight)
-      hierarchyView.frame = CGRect(x: 0,
-                                   y: lexicalView.frame.maxY,
-                                   width: view.bounds.width,
-                                   height: hierarchyViewHeight)
+      toolbar.frame = CGRect(
+        x: 0,
+        y: safeAreaInsets.top,
+        width: view.bounds.width,
+        height: 44)
+      lexicalView.frame = CGRect(
+        x: 0,
+        y: toolbar.frame.maxY,
+        width: view.bounds.width,
+        height: view.bounds.height - toolbar.frame.maxY - safeAreaInsets.bottom - hierarchyViewHeight)
+      hierarchyView.frame = CGRect(
+        x: 0,
+        y: lexicalView.frame.maxY,
+        width: view.bounds.width,
+        height: hierarchyViewHeight)
     }
   }
 
@@ -124,9 +127,11 @@ class ViewController: UIViewController, UIToolbarDelegate, LexicalViewDelegate {
 
   func setUpExportMenu() {
     let menuItems = OutputFormat.allCases.map { outputFormat in
-      UIAction(title: "Export \(outputFormat.title)", handler: { [weak self] action in
-        self?.showExportScreen(outputFormat)
-      })
+      UIAction(
+        title: "Export \(outputFormat.title)",
+        handler: { [weak self] action in
+          self?.showExportScreen(outputFormat)
+        })
     }
     let menu = UIMenu(title: "Export as…", children: menuItems)
     let barButtonItem = UIBarButtonItem(title: "Export", style: .plain, target: nil, action: nil)

@@ -428,7 +428,8 @@ public extension LexicalViewDelegate {
     let fullHeight = textView.sizeThatFits(
       CGSize(
         width: containerSize.width - padding.left - padding.right,
-        height: containerSize.height - padding.top - padding.bottom)).height
+        height: containerSize.height - padding.top - padding.bottom)
+    ).height
 
     return fullHeight
   }
