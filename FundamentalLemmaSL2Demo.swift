@@ -43,8 +43,7 @@ func runDemo() {
     print("\n🎵 Example 2: Signal Composition")
     print(String(repeating: "-", count: 50))
     let carrier = Signal.sinusoidal(amplitude: 1.0, frequency: 10.0)
-    let _ = Signal.sinusoidal(amplitude: 0.5, frequency: 1.0)
-    print("Created carrier signal (10 Hz) and modulator (1 Hz)")
+    print("Created carrier signal (10 Hz)")
     let carrierSamples = carrier.sample(from: 0, to: 0.5, steps: 5)
     print("Carrier samples: \(carrierSamples.map { String(format: "%.3f", $0.magnitude) })")
 

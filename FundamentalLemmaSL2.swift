@@ -443,6 +443,10 @@ public struct OrbitalIntegral {
         let orbitalH = compute(group: H, element: gammaH)
         
         // Apply transfer factor (simplified: use trace matching)
+        // Guard against division by zero
+        guard gammaH.trace.magnitude > 1e-10 else {
+            return false
+        }
         let transferFactor = gamma.trace.magnitude / gammaH.trace.magnitude
         let normalizedOrbitalH = orbitalH * transferFactor
         
